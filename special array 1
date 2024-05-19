@@ -1,0 +1,14 @@
+// To check the parity of adjacent elements
+
+class Solution {
+public:
+    bool isArraySpecial(vector<int>& nums) {
+     int n = nums.size();
+        for (int i = 0; i < n - 1; ++i) {
+            if (nums[i] % 2 == nums[i + 1] % 2) { // check if adjacent elements have the same parity
+                return false; // if any adjacent elements have the same parity, return false
+            }
+        }
+        return true;
+    }
+};
