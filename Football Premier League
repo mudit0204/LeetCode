@@ -1,0 +1,29 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int X, Y;
+        cin >> X >> Y;
+
+        // Calculate the maximum possible wins for both teams
+        int maxWinsA = X / 3;
+        int maxWinsB = Y / 3;
+
+        // Remaining points after maximum wins
+        int remainingPointsA = X - 3 * maxWinsA;
+        int remainingPointsB = Y - 3 * maxWinsB;
+
+        // Minimum number of draws
+        int minDraws = max(remainingPointsA, remainingPointsB);
+
+        cout << minDraws << endl;
+    }
+
+    return 0;
+}
