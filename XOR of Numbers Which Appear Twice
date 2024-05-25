@@ -1,0 +1,27 @@
+#include <vector>
+#include <unordered_set>
+using namespace std;
+
+class Solution {
+public:
+    int duplicateNumbersXOR(vector<int>& nums) {
+        unordered_set<int> seen; // Set to store numbers seen so far
+        int result = 0; // Initialize the result variable
+        
+        // Iterate through each number in the nums array
+        for (int num : nums) {
+            // If the number is already in seen, it's the second occurrence, so remove it from seen and add it to the result
+            // Otherwise, add it to seen
+            if (seen.count(num)) {
+                result ^= num; // XOR the number with the result
+                seen.erase(num); // Remove the number from seen
+            } else {
+                seen.insert(num); // Add the number to seen
+            }
+        }
+        
+        return result;
+    }
+};
+
+
