@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        string clS ="";
+        for(char c : s){ // Fixing the syntax of the for-loop
+            if(isalnum(c)){
+                clS += tolower(c);
+            }
+        }
+        int left = 0, right = clS.length() - 1; // Corrected the variable declaration
+        while(left < right){
+            if (clS[left] != clS[right]) { // Access the characters of the cleaned string using clS
+                return false; // Not a palindrome, so return false
+            }
+            left++;
+            right--;
+        }
+        return true; // If the loop completes, it's a palindrome
+    }
+};
