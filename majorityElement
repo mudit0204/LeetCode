@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        // Initialize the assumed majority element as the first element in the array
+        int j = nums[0];
+        // Initialize the count of the assumed majority element to 1
+        int count = 1;
+        
+        // Iterate through the array starting from the second element
+        for(int i = 1; i < nums.size(); i++) {
+            // If the current element is the same as the assumed majority element
+            if(j == nums[i]) {
+               // Increment the count
+               count++;
+            } else {
+                // If the current element is different from the assumed majority element,
+                // decrement the count
+                count--;
+            }
+            
+            // If the count reaches 0, update the assumed majority element to the current element
+            // and reset the count to 1
+            if (count == 0) {
+                j = nums[i];
+                count = 1;
+            }
+        }
+        
+        // Return the assumed majority element
+        return j;
+    }
