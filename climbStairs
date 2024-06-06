@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n <= 1) return 1;
+        
+        double sqrt5 = sqrt(5);
+        double fibN = (pow((1 + sqrt5) / 2, n + 1) + 0.5) / sqrt5;
+        return fibN + 0.5; // Rounding to the nearest integer
+    }
+};
