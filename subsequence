@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+ int startIndex = 0;
+    
+    // Go through each character in the s string
+    for (char character : s) {
+        // Find the position of the character in t starting from startIndex
+        size_t foundIndex = t.find(character, startIndex);
+        
+        // If the character is not found in t, find returns a value greater than the length of t
+        if (foundIndex >= t.size()) {
+            return false;
+        }
+        
+        // Move startIndex to the next position after the found character
+        startIndex = foundIndex + 1;
+    }
+    
+    // If we have found all characters of s in t in the correct order, return true
+    return true;
+}
+};
+
+
+
+// 2nd almost same approach code 
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+       int current_pos = 0; 
+       for(char c: s){
+        current_pos = t.find(c, current_pos);
+
+        if(current_pos == string::npos){
+            return false;
+        }
+        current_pos++;
+       }
+       return true;
+    }
+};
