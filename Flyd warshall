@@ -1,0 +1,72 @@
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
+
+        /*
+        create a 2d matrix representing the distance of one node from all the 
+        other nodes. The distance from themselves is 0 and not reachable is INF
+
+        go through each item in a row and for each item, go through the other 
+        items in that row and add them together. If this is lower than the 
+        threshold, add it it its respective row.
+
+        go through each of the rows and if the number is not INT_MAX, then add
+        by 1, return the one with the lowest.
+        */
+
+        std::vector<std::vector<int>> graph(n, std::vector<int>(n, INT_MAX));
+
+        for (int i = 0; i < n; i++) {
+            graph[i][i] = 0;
+        }
+
+        for (int i = 0; i < edges.size(); i++) {
+            int from = edges[i][0];
+            int to = edges[i][1];
+            int weight = edges[i][2];
+            if (weight <= distanceThreshold) {
+                graph[from][to] = weight;
+                graph[to][from] = weight;
+            }
+
+            
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int cur = graph[i][j];
+                if (cur == 0) { continue; }
+                if (cur == INT_MAX) { continue; }
+                for (int k = j + 1; k < n; k++) {
+                    if (graph[i][k] != INT_MAX && graph[i][k] != 0) {
+                        if (graph[i][k] + cur <= distanceThreshold) {
+                            graph[k][j] = min(graph[k][j], graph[i][k] + cur);
+                            graph[j][k] = min(graph[j][k], graph[i][k] + cur);
+                        }
+                    }
+                    
+                }
+            }
+        }
+
+        int cur_min = INT_MAX;
+        int res;
+
+        for (int i = 0; i < n; i++) {
+            int cur = 0;
+            for (int j = 0; j < n; j++) {
+                if (graph[i][j] != INT_MAX && graph[i][j] != 0) {
+                    cur++;
+                }
+            }
+            if (cur < cur_min) {
+                cur_min = cur;
+                res = i;
+            } else if (cur == cur_min) {
+                res = i;
+            }
+        }
+        return res;
+        
+    }
+};
