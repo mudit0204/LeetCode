@@ -1,0 +1,30 @@
+class Solution {
+    int totalBooks;
+    int shelfWidth;
+
+public:
+    int findMinHeight(int bookIndex, const vector<vector<int>>& books, int curShelfHeight, int curShelfWidth, vector<vector<int>>& dp) {
+        // base case
+        int maxHeight = max(curShelfHeight, books[bookIndex][1]);
+        if (bookIndex == totalBooks - 1) {
+            if (books[bookIndex][0] <= curShelfWidth) return maxHeight;
+            return curShelfHeight + books[bookIndex][1];
+        }
+        if (dp[bookIndex][curShelfWidth] != 0) {
+            return dp[bookIndex][curShelfWidth];
+        }
+        int sameShelf = INT_MAX;
+        if (books[bookIndex][0] <= curShelfWidth) {
+            sameShelf = findMinHeight(bookIndex + 1, books, maxHeight, curShelfWidth - books[bookIndex][0], dp);
+        }
+        int newShelf = curShelfHeight + findMinHeight(bookIndex + 1, books, books[bookIndex][1], shelfWidth - books[bookIndex][0], dp);
+        return dp[bookIndex][curShelfWidth] = min(sameShelf, newShelf);
+    }
+
+    int minHeightShelves(vector<vector<int>>& books, int shelfWidth) {
+        totalBooks = books.size();
+        this->shelfWidth = shelfWidth;
+        vector<vector<int>> dp(totalBooks, vector<int>(shelfWidth + 1, 0));
+        return findMinHeight(0, books, 0, shelfWidth, dp);
+    }
+};
